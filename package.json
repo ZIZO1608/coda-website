@@ -1,0 +1,12 @@
+{
+  "name": "coda-website",
+  "private": true,
+  "type": "module",
+  "description": "CODA Media agency website (static, pre-rendered EN + AR)",
+  "scripts": {
+    "dev": "node build.mjs --serve",
+    "build": "node build.mjs",
+    "images": "node scripts/make-images.mjs"
+  },
+  "engines": { "node": ">=20" }
+}

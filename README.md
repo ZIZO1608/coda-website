@@ -26,7 +26,7 @@ It rebuilds when you save a file. No `npm install` needed: there are no dependen
 
 1. Push this folder to a Git repo (GitHub/GitLab) and add it in Coolify as a new **Application** from that repo.
 2. **Build pack:** Dockerfile. **Port:** `80`.
-3. **Environment variables:** add `SITE_URL` = `https://yourdomain.com` (no trailing slash) and tick **Build Variable**. The build stops with an error if it's missing.
+3. **Environment variables (optional):** the site builds for `https://coda-media.com` by default. To use another domain, add `SITE_URL` = `https://otherdomain.com` (no trailing slash) and tick **Build Variable**.
 4. **Domains:** enter `https://yourdomain.com,https://www.yourdomain.com`. Coolify gets the SSL certificate. Then turn on the www → non-www redirect (or the other way round) so only one version exists.
 5. At your domain registrar, point an `A` record for `@` and `www` to the VPS IP.
 6. Deploy. Check that `https://yourdomain.com/sitemap.xml` shows your real domain.

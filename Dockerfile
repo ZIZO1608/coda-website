@@ -1,11 +1,10 @@
 # Stage 1: pre-render the pages (no npm dependencies needed)
 FROM node:22-alpine AS build
 WORKDIR /app
+# SITE_URL from Coolify overrides the default; an empty value also falls back to the live domain
 ARG SITE_URL
-ENV SITE_URL=${SITE_URL}
-RUN test -n "$SITE_URL" || (echo "ERROR: set SITE_URL (e.g. https://codamedia.com) as a build variable in Coolify" && exit 1)
 COPY . .
-RUN node build.mjs
+RUN SITE_URL="${SITE_URL:-https://coda-media.com}" node build.mjs
 
 # Stage 2: serve the static files
 FROM nginx:1.27-alpine

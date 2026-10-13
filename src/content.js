@@ -85,7 +85,7 @@ const CREW = [
   { n: "Ahmad Gebar", img: "/img/ahmad.webp",
     en: ["CEO & Creative Director", "Leads strategy, briefs and copy."],
     ar: ["المدير التنفيذي والمدير الإبداعي", "يقود الاستراتيجية والبريف وكتابة المحتوى."] },
-  { n: "Abd al rahmman Hallak", img: "/img/abdullah.webp",
+  { n: "Abdulrahman Hallak", img: "/img/abdullah.webp",
     en: ["Graphic Designer", "Visual identities, posts and campaign design."],
     ar: ["مصمم غرافيك", "الهويات البصرية والمنشورات وتصاميم الحملات."] },
   { n: "Ghaith", img: "/img/ghaith.webp",

@@ -107,6 +107,18 @@ const CLIENTS = [
   ["Human Care", "human-care"], ["Bloom Style", "bloom-style"], ["Ahmad Asaad Abo Ras Sons & Co.", "ahmad-asaad"],
   ["Vilo", "vilo"], ["Top Light", "top-light"], ["Isaval", "isaval"],
 ];
+// Clients switched on in the CODA dashboard ("Show on website") join the crate at build time.
+// A brand that is already in the list above keeps its hand-made logo.
+// Entry shape: [name, logo file or URL, isPhoto, isRemote, industry]
+{
+  const known = new Set(CLIENTS.map(c => c[0].trim().toLowerCase()));
+  for (const r of globalThis.REMOTE_CLIENTS || []) {
+    const key = r.name.trim().toLowerCase();
+    if (known.has(key)) continue;
+    known.add(key);
+    CLIENTS.push([r.name, r.logo, false, true, r.industry || ""]);
+  }
+}
 const SLEEVE_STYLES = ["s-paper", "s-red", "s-black"];
 
 // The logo's hand-drawn record, centred on its hole (same scale as the old r=49.1 circle).
@@ -159,9 +171,9 @@ const render = {
 
   crateTicks: () => CLIENTS.map(() => "<i></i>").join(""),
 
-  crate: () => `<div class="crate-disc" id="crateDisc"></div>` + CLIENTS.map(([name, file, photo], i) => `<div class="sleeve ${SLEEVE_STYLES[i % 3]}" data-i="${i}">
+  crate: () => `<div class="crate-disc" id="crateDisc"></div>` + CLIENTS.map(([name, file, photo, remote], i) => `<div class="sleeve ${SLEEVE_STYLES[i % 3]}" data-i="${i}">
     <span class="wear"></span>
-    <img src="/logos/${file}.webp" alt="${esc(name)}${photo ? "" : " logo"}"${photo ? ' class="photo"' : ""} loading="lazy" decoding="async">
+    <img src="${remote ? esc(file) : `/logos/${file}.webp`}" alt="${esc(name)}${photo ? "" : " logo"}"${photo ? ' class="photo"' : remote ? ' class="remote"' : ""} loading="lazy" decoding="async">
     <span class="s-name">${esc(name)}</span>
     <span class="cat" dir="ltr"><span>CODA-${String(i + 1).padStart(3, "0")}</span><span>33⅓</span></span>
   </div>`).join(""),

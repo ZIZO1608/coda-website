@@ -286,12 +286,40 @@ function manifest(site) {
   }, null, 2);
 }
 
+/* ───────────── clients from the dashboard ───────────── */
+// Returns [{ name, logo, industry }] for clients switched on in the dashboard.
+// The site must always build, so any failure here just means "no extra clients".
+async function fetchDashboardClients(site) {
+  const { url, key } = site.clients || {};
+  if (!url || !key) return [];
+  try {
+    const res = await fetch(url + "/rest/v1/rpc/get_website_clients", {
+      method: "POST",
+      headers: { apikey: key, Authorization: "Bearer " + key, "Content-Type": "application/json" },
+      body: "{}",
+      signal: AbortSignal.timeout(10000),
+    });
+    if (!res.ok) throw new Error("HTTP " + res.status);
+    const rows = await res.json();
+    if (!Array.isArray(rows)) throw new Error("unexpected response");
+    return rows
+      .filter(r => r && typeof r.name === "string" && r.name.trim() && typeof r.logo_url === "string" && /^https:\/\//.test(r.logo_url))
+      .map(r => ({ name: r.name.trim(), logo: r.logo_url, industry: typeof r.industry === "string" ? r.industry.trim() : "" }));
+  } catch (e) {
+    console.warn("WARNING: could not load clients from the dashboard (" + e.message + "). Building with the built-in list only.");
+    return [];
+  }
+}
+
 /* ───────────── build ───────────── */
 async function build() {
   const t0 = Date.now();
   const site = await loadConfig();
   const template = fs.readFileSync(path.join(SRC, "index.html"), "utf8");
-  const contentJs = fs.readFileSync(path.join(SRC, "content.js"), "utf8");
+  const remoteClients = await fetchDashboardClients(site);
+  // "<" is escaped so a client name can never close the inline <script> the content is embedded in
+  const contentJs = "globalThis.REMOTE_CLIENTS = " + JSON.stringify(remoteClients).replace(/</g, "\\u003c") + ";\n" +
+    fs.readFileSync(path.join(SRC, "content.js"), "utf8");
   const appJs = fs.readFileSync(path.join(SRC, "app.js"), "utf8");
   const C = loadContent(contentJs);
 
@@ -306,7 +334,7 @@ async function build() {
   fs.writeFileSync(path.join(DIST, "robots.txt"), robots(site));
   fs.writeFileSync(path.join(DIST, "llms.txt"), llms(site, C));
   fs.writeFileSync(path.join(DIST, "site.webmanifest"), manifest(site));
-  console.log(`built dist/ for ${site.url} in ${Date.now() - t0}ms`);
+  console.log(`built dist/ for ${site.url} in ${Date.now() - t0}ms (${C.CLIENTS.length} clients, ${remoteClients.length} from the dashboard)`);
   if (/localhost|127\.0\.0\.1/.test(site.url) && !process.argv.includes("--serve"))
     console.warn("WARNING: SITE_URL is not set, so canonical/sitemap URLs point to localhost.");
 }

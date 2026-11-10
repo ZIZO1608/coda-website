@@ -31,6 +31,14 @@ export default {
   foundingDate: "",            // e.g. "2023"
   priceRange: "",              // e.g. "$$"
 
+  // Clients switched on in the CODA dashboard ("Show on website") are added to the clients section
+  // every time the site is built. The key is the dashboard's public (anon) key, not a secret.
+  // Leave url empty to build with only the built-in list.
+  clients: {
+    url: (process.env.CLIENTS_API_URL ?? "https://database.coda-media.com").replace(/\/+$/, ""),
+    key: process.env.CLIENTS_API_KEY ?? "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzdXBhYmFzZSIsImlhdCI6MTc5NDAwNTE2MCwiZXhwIjo0OTQ5Njc4NzYwLCJyb2xlIjoiYW5vbiJ9.vD658g6cNP2AtsCjwmxL84wAXfllxcEHbcNqCAWGjy0",
+  },
+
   // Search console verification codes (content="" value only)
   verification: { google: "", bing: "", yandex: "" },
 };

@@ -272,11 +272,16 @@ html[lang="ar"] .crate-info h2{line-height:1.3}
 .sleeve img{position:relative;max-width:58%;max-height:46%;object-fit:contain;mix-blend-mode:screen}
 .sleeve.s-paper img{filter:invert(1);mix-blend-mode:multiply}
 .sleeve img.photo,.sleeve.s-paper img.photo{width:54%;max-width:none;max-height:none;aspect-ratio:1;object-fit:cover;border-radius:50%;mix-blend-mode:normal;filter:grayscale(1) contrast(1.05)}
+/* logos uploaded in the dashboard come in any colour, so they sit on a paper plate instead of being blended */
+.sleeve img.remote,.sleeve.s-paper img.remote{box-sizing:border-box;max-width:62%;max-height:50%;padding:5%;border-radius:8px;background:var(--paper);mix-blend-mode:normal;filter:none}
 .sleeve .s-name{display:none;position:relative;font-family:"Comfortaa",sans-serif;font-weight:700;font-size:clamp(1.4rem,3.2vw,3rem);line-height:1.05;letter-spacing:-.03em;text-align:center;padding-inline:10%}
 .sleeve.nologo img{display:none}
 .sleeve.nologo .s-name{display:block}
 .sleeve .cat{position:absolute;bottom:5%;left:6%;right:6%;display:flex;justify-content:space-between;font:700 10px/1 "Comfortaa",sans-serif;opacity:.6;letter-spacing:.04em}
 html[dir="rtl"] .crate-count,html[dir="rtl"] .crate-name{text-align:right}
+.crate-ind{margin:0;color:var(--mute);font-weight:600;font-size:clamp(13px,1.1vw,16px)}
+.crate-ind:empty{display:none}
+html[dir="rtl"] .crate-ind{text-align:right}
 .crate-ticks{display:flex;align-items:flex-end;gap:4px;height:24px;margin-top:6px}
 .crate-ticks i{flex:0 0 3px;height:10px;border-radius:2px;background:var(--dim);transition:height .4s cubic-bezier(.2,.8,.2,1),background-color .4s}
 .crate-ticks i.past{background:var(--mute)}
@@ -667,6 +672,7 @@ html.rm .mm-rec{animation:none}
         <div class="crate-now" aria-live="polite">
           <span class="crate-count" id="crateCount" dir="ltr">01 / {{CLIENT_COUNT}}</span>
           <p class="crate-name" id="crateName" dir="ltr">Algo</p>
+          <p class="crate-ind" id="crateInd" dir="auto"></p>
           <div class="crate-ticks" id="crateTicks" aria-hidden="true">{{CRATE_TICKS}}</div>
         </div>
       </div>

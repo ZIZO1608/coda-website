@@ -49,7 +49,7 @@ function cacheEls() {
     wave: $("#wave"), waveBg: $("#waveBg"), waveFg: $("#waveFg"),
     heroLines: $$("#heroH1 .ln>span"), heroFades: $$(".hero-copy .ln-fade"), heroCopy: $("#heroCopy"),
     progress: $("#progress"), arm: $("#arm"), sleeves: $$(".sleeve"), crateDisc: $("#crateDisc"),
-    crateCount: $("#crateCount"), crateName: $("#crateName"), crateTicks: $$("#crateTicks i"),
+    crateCount: $("#crateCount"), crateName: $("#crateName"), crateInd: $("#crateInd"), crateTicks: $$("#crateTicks i"),
     finC: $("#finC"), finDot: $("#finDot"), finDisc: $("#finDisc"), finHole: $("#finHole"),
   });
 }
@@ -303,6 +303,7 @@ function crateRender() {
     crate.front = front;
     el.crateCount.textContent = `${String(front + 1).padStart(2, "0")} / ${N}`;
     el.crateName.textContent = CLIENTS[front][0];
+    el.crateInd.textContent = CLIENTS[front][4] || "";
     el.crateTicks.forEach((t, i) => { t.classList.toggle("past", i < front); t.classList.toggle("now", i === front); });
     // the new name rises in like the next record coming forward
     if (motion && el.crateName.animate) el.crateName.animate(

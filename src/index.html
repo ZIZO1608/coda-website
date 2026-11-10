@@ -425,19 +425,56 @@ html.rm .fin-svg{display:none}
   .btn:active,.lang:active,.snd:active,.menu-btn:active,.badge:active,.copy:active,.track:active,.mm-links a:active{transform:scale(.96);transition-duration:.12s}
   a,button{-webkit-tap-highlight-color:transparent}
 
-  /* layout */
+  /* layout: phones keep the desktop compositions, scaled down */
   .manifesto .lyr-text{max-width:none;font-size:clamp(1.3rem,min(6.6vw,5.2vh),2.6rem);line-height:1.22}
-  .deck{padding-bottom:20px;background:linear-gradient(var(--black) calc(100% - 30px),transparent)}
-  .deck-cap{padding-top:2px}
-  .crate-info h2{font-size:clamp(2rem,10vw,3.4rem)}
-  .crate{width:min(76vw,40vh)}
-  .fin-copy h2{font-size:clamp(2.2rem,min(13vw,9.5vh),4.6rem)}
-  .foot{flex-direction:column;align-items:flex-start;gap:6px}
+
+  /* services: the turntable stays beside the tracklist */
+  .tracks-grid{grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:4vw}
+  .deck{height:100vh;height:100svh;padding:0;background:none;z-index:auto;gap:10px}
+  .deck svg{width:min(40vw,56vh)}
+  .deck-cap{flex-direction:column;align-items:center;gap:2px;font-size:11px}
+  .tracklist{padding:40vh 0 44vh}
+  .side{font-size:12px;padding-block:20px 10px}
+  .track{grid-template-columns:1.9rem minmax(0,1fr);gap:8px;padding-block:clamp(16px,2.6vh,26px)}
+  .t-code{font-size:12px;padding-top:.35em}
+  .track h3{font-size:clamp(1rem,4.6vw,1.9rem);line-height:1.15}
+  html[lang="ar"] .track h3{line-height:1.5}
+  .track p{font-size:clamp(12px,3.3vw,15px);margin-top:.35rem}
+
+  /* clients: the text stays beside the record crate */
+  .crate-pin{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:4vw;padding-top:56px;align-content:center}
+  .crate{order:0;width:min(44vw,40vh);margin-top:0}
+  .crate-info{gap:10px}
+  .crate-info h2{font-size:clamp(1.5rem,7vw,3rem)}
+  .crate-info>p{font-size:clamp(12px,3.2vw,15px)}
+  .crate-name{font-size:clamp(1.05rem,4.6vw,2rem);min-height:2.3em}
+  .crate-ticks{gap:3px}
+  .crate-ticks i{flex-basis:2px}
+
+  /* contact: copy on the left, the black "Let's talk" circle on the right */
+  .fin-copy{width:min(66vw,560px);inset-inline-end:auto}
+  .fin-copy h2{font-size:clamp(1.8rem,min(9.6vw,7vh),4.6rem)}
+  .coda-sub{font-size:clamp(13px,3.4vw,18px)}
+  .def{font-size:12px}
+  .cta-row .btn{font-size:clamp(12px,3.3vw,13px);padding:.95em 1.05em;min-height:44px;white-space:nowrap}
+  .phone-num{font-size:clamp(15px,4vw,22px)}
+  .talk{display:grid;width:clamp(84px,24vw,170px);inset-inline-end:var(--gutter);top:calc(50% - clamp(42px,12vw,85px));font-size:clamp(12px,3.4vw,18px);gap:4px}
+  .talk svg{width:clamp(16px,4.4vw,24px);height:clamp(16px,4.4vw,24px)}
+  .foot{flex-direction:row;align-items:center;gap:10px;font-size:11px}
 }
 
 @media (max-width:759px){
-  .crew-intro{width:80vw}
-  .member{width:80vw}
+  /* hero: headline on the left, the logo on the right running off the edge, as on desktop */
+  .hero-copy{top:50%;bottom:auto;transform:translateY(-46%);width:58vw;inset-inline-end:auto;gap:14px}
+  .hero-kicker{font-size:11px}
+  .hero h1{font-size:clamp(1.45rem,6.7vw,2.6rem)}
+  html[lang="ar"] .hero h1{font-size:clamp(1.55rem,7.4vw,2.8rem)}
+  .hero-actions{gap:12px}
+  .hero-actions .btn{font-size:13px;padding:.95em 1.2em;min-height:44px}
+  .badge{width:44px;height:44px}
+  /* team: narrower cards so the reel shows more than one at a time, like desktop */
+  .crew-intro{width:70vw}
+  .member{width:62vw}
 }
 
 /* phones held sideways: short screens get the side-by-side layouts back */

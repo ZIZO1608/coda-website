@@ -102,7 +102,7 @@ html.rm .loader{display:none}
 .curtain svg{width:56px;height:auto}
 .progress{position:fixed;top:0;inset-inline:0;z-index:70;height:2px;background:var(--red);transform-origin:left center;transform:scaleX(0);pointer-events:none}
 html[dir="rtl"] .progress{transform-origin:right center}
-.wm{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.12em;margin-bottom:-.12em}
+.wm{display:inline-block;overflow:hidden;vertical-align:top;padding-top:.12em;margin-top:-.12em;padding-bottom:.12em;margin-bottom:-.12em}
 html[lang="ar"] .wm{padding-bottom:.35em;margin-bottom:-.35em}
 .wi{display:inline-block;will-change:transform}
 
@@ -134,7 +134,8 @@ html[lang="ar"] .wm{padding-bottom:.35em;margin-bottom:-.35em}
 .hero-kicker{margin:0;color:var(--mute);font-size:clamp(14px,1.15vw,17px);font-weight:600}
 .hero h1{font-size:clamp(2.4rem,6vw,7rem);line-height:1}
 html[lang="ar"] .hero h1{font-size:clamp(2.6rem,6vw,7rem);line-height:1.2}
-.hero h1 .ln{display:block;overflow:hidden;padding-bottom:.1em}
+/* headroom above the letters (cancelled by the negative margin) so the mask never shaves the top of a T when the browser rounds its edge */
+.hero h1 .ln{display:block;overflow:hidden;padding-top:.12em;margin-top:-.12em;padding-bottom:.1em}
 html[lang="ar"] .hero h1 .ln{padding-bottom:.32em;margin-bottom:-.32em}
 .hero h1 .ln>span{display:block;will-change:transform}
 .hero-actions{display:flex;align-items:center;gap:28px;flex-wrap:wrap}

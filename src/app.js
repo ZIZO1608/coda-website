@@ -109,12 +109,12 @@ function heroLayout() {
   const mobile = W < 760;
   let s, lx, ly;
   if (mobile) {
-    // same composition as desktop: the mark starts just past the headline and runs off the near edge
-    s = Math.min(H * .62 / 210, W * 1.25 / 204);
-    // in Arabic the C opens toward the headline, so draw it smaller to keep about two thirds of it (disc included) on screen
-    if (isRTL()) s = Math.min(s, W * .38 / 125);
-    lx = isRTL() ? W * .38 - 97 * s : W * .63 + 100 * s;
-    ly = H * .52;
+    // the whole mark (x -102…97, y -110…100 incl. the dot) sits inside the screen, centred between the nav and the headline;
+    // offsetTop ignores the intro/scroll transforms on the copy, so this is its resting position
+    const top = 64, bottom = $("#heroCopy").offsetTop - 20, avail = Math.max(160, bottom - top);
+    s = Math.min(avail / 210, (W - 40) / 199);
+    lx = W / 2 + 2.7 * s;
+    ly = top + avail / 2 + 5 * s;
   }
   else {
     // big mark that runs off the near edge, with room for the headline beside it
